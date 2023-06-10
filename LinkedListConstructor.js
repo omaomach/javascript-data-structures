@@ -1,13 +1,13 @@
 class Node {
     constructor(value) {
-        this.value = value;
+        this.value = value; // we are passing the value to the new Node we are creating(value to this.value)
         this.next = null;
     }
 }
 
 class LinkedList {
-    constructor(value) {
-        let newNode = new Node(value);
+    constructor(value) {  // classes always have a constructor, this is what create the object/instance of the class
+        let newNode = new Node(value); // 
         this.head = newNode;
         this.tail = this.head;
         this.length = 1
@@ -84,7 +84,7 @@ class LinkedList {
     insert(index, value) {
         if (index === 0) return this.unshift(value)
         if (index === this.length) return this.push(value)
-        if (index < 0 || index >= this.length) return undefined
+        if (index < 0 || index > this.length) return undefined
         const newNode = new Node(value)
         const temp = this.get(index - 1)
         newNode.next = temp.next
@@ -118,11 +118,51 @@ class LinkedList {
         }
         return this
     }
+
+    // findLength() {
+    //     let length = 0
+    //     var temp = this.head
+    //     while (temp != null) {
+    //         length += 1
+    //         temp = temp.next
+    //     }
+    //     return length
+    // }
+
+    // findMiddleNode() {
+    //     if (this.head != null) {
+    //         let length = this.findLength()
+    //         var temp = this.head
+    //         let midpoint = length/2
+    //         while (midpoint != 0) {
+    //             temp = temp.next
+    //             midpoint--
+    //         }
+    //         console.log(`middle node: ${temp.value}`)
+    //     }
+    // }
+
+    findMiddleNode() {
+        // initialize first and second pointers
+        let first = this.head
+        let second = this.head
+        // iterate through the list
+        while (first !== null && first.next !== null) {
+            // move second pointer by one step
+            second = second.next
+            // move second pointer by two steps
+            first = first.next.next
+        }
+        // return middle node when the first reaches the end
+        return second
+    }
+
 }
 
-let linkedList = new LinkedList(5)
+let linkedList = new LinkedList(5)  // the new keyword call the class constructor  165437
 linkedList.push(4)
+linkedList.push(3)
 linkedList.unshift(1)
 linkedList.insert(1,6)
 linkedList.insert(4,7)
-console.log(linkedList.remove(4))
+console.log(linkedList.findMiddleNode())
