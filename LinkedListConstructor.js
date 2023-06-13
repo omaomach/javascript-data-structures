@@ -157,6 +157,19 @@ class LinkedList {
         return second
     }
 
+    hasLoop() {
+        let slow = this.head
+        let fast = this.head
+        while (fast !== null && fast.next !== null) {
+            slow = slow.next
+            fast = fast.next.next
+            if (fast === slow) {
+                return true
+            }
+        }
+        return false
+    }
+
 }
 
 let linkedList = new LinkedList(5)  // the new keyword call the class constructor  165437
@@ -165,4 +178,4 @@ linkedList.push(3)
 linkedList.unshift(1)
 linkedList.insert(1,6)
 linkedList.insert(4,7)
-console.log(linkedList.findMiddleNode())
+console.log(linkedList.hasLoop())
