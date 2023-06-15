@@ -119,15 +119,15 @@ class LinkedList {
         return this
     }
 
-    // findLength() {
-    //     let length = 0
-    //     var temp = this.head
-    //     while (temp != null) {
-    //         length += 1
-    //         temp = temp.next
-    //     }
-    //     return length
-    // }
+    findLength() {
+        let length = 0
+        var temp = this.head
+        while (temp != null) {
+            length += 1
+            temp = temp.next
+        }
+        return length
+    }
 
     // findMiddleNode() {
     //     if (this.head != null) {
@@ -157,17 +157,42 @@ class LinkedList {
         return second
     }
 
+    //// THE HARE AND TORTOISE ALGORITHM IMPLEMENTATION
     hasLoop() {
+        // iniatialized two pointers, both pointing to the head linked list
         let slow = this.head
         let fast = this.head
+
+        // traverse the linked list using a while loop. The loop continues as long as fast has not reached the end of the list
+        // there should be atleast one more node after the current fast node
         while (fast !== null && fast.next !== null) {
+            // move the slow pointer one step forward
             slow = slow.next
+            // move the fast pointer 2 steps forward
             fast = fast.next.next
+            // check if the two pointers have become equal, if true, it means there is a loop in the LL and the function returns true
             if (fast === slow) {
                 return true
             }
         }
+        // if the loop terminates without the slow and fast pointers becoming equal, it means the LL has no loop and the function returns false
         return false
+    }
+
+    findKthFromEnd(k) {
+        let slow = this.head
+        let fast = this.head
+        for (let i = 0; i < k-1; ++i) {
+            if (fast === null) {
+                return null
+            }
+            fast = fast.next
+        }
+        while (fast !== null) {
+            slow = slow.next
+            fast = fast.next
+        }
+        return slow
     }
 
 }
@@ -178,4 +203,4 @@ linkedList.push(3)
 linkedList.unshift(1)
 linkedList.insert(1,6)
 linkedList.insert(4,7)
-console.log(linkedList.hasLoop())
+console.log(linkedList.findKthFromEnd(2))
